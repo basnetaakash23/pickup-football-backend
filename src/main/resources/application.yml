@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: demo
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  security:
+    user:
+      name: ${ADMIN_USER}         # Default username
+      password: ${ADMIN_PASSWORD}
+  activemq:
+    broker-url: ${ACTIVEMQ_URL}  # URL of the ActiveMQ broker
+    user: ${ACTIVEMQ_USER}                      # ActiveMQ username
+    password: ${ACTIVEMQ_PW}                 # ActiveMQ password
+    in-memory: false                 # Whether to use an in-memory broker
+    pub-sub-domain: true             # Set to true for publish/subscribe messaging (otherwise, point-to-point)
+    jms:
+      listener:
+        concurrency: 3-10
+  mail:
+    host: smtp.mail.yahoo.com
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+server:
+  port: ${SEVER_PORT}
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 3600000
+  refresh-token:
+    expiration: 604800000
+
+
