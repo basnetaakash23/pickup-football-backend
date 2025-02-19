@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/users")
 public class UserController {
 
     private final UsersRepository usersRepository;
@@ -54,10 +55,9 @@ public class UserController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             return jwtService.generateToken(authentication);
         }catch(Exception ex){
-            throw new RuntimeException("Invalid username or password");
+            throw new Exception("Invalid username or password");
         }
     }
-
 
     @GetMapping(value="/get")
     public ResponseEntity<String> getSomething(){

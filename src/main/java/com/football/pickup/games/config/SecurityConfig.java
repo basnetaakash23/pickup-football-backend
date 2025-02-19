@@ -30,7 +30,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtTokenFilter jwtTokenFilter) throws Exception {
         http.csrf(csrf->csrf.disable())
                 .authorizeHttpRequests((authorize) ->
-                        authorize.requestMatchers("/register/**", "/login", "/get-current-user").permitAll()
+                        authorize.requestMatchers("/register/**", "/login").permitAll()
                                 .requestMatchers("/index").permitAll()
                                 .requestMatchers("/send").permitAll()
                                 .requestMatchers("/get-game-date/**").permitAll()

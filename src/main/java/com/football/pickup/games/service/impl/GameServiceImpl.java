@@ -53,16 +53,16 @@ public class GameServiceImpl implements GameServiceInterface {
     }
 
     @Override
-    public String registerForGames(RegisterForGames registerForGames) {
+    public String registerForGames(RegisterForGames registerForGames) throws Exception {
         Integer gameId = registerForGames.getGameId();
         Optional<Games> games = gameRepository.findById(Long.valueOf(gameId));
         if(games.isEmpty()){
-            throw new RuntimeException("Game does not exists");
+            throw new Exception("Game does not exists");
         }
 
         Optional<Users> user = usersRepository.findById(Long.valueOf(registerForGames.getUserId()));
         if(user.isEmpty()){
-            throw new RuntimeException("User not found");
+            throw new Exception("User not found");
         }
         Games game = games.get();
         List<Users> users = game.getUsers();
@@ -85,11 +85,11 @@ public class GameServiceImpl implements GameServiceInterface {
     }
 
     @Override
-    public List<GameDto> getActiveGames() {
+    public List<GameDto> getActiveGames() throws Exception {
         LocalDateTime localDateTime = LocalDateTime.now();
         Optional<List<Games>> games  = gameRepository.findByLocalDateTimeGreaterThanEqual(localDateTime);
         if(games.isEmpty()){
-            throw new RuntimeException("No games found");
+            throw new Exception("No games found");
         }
         List<GameDto> allCurrentFutureGames = games.get().stream().map(this::buildCurrentFutureGames).collect(Collectors.toList());
         return allCurrentFutureGames;
@@ -97,7 +97,7 @@ public class GameServiceImpl implements GameServiceInterface {
     }
 
     @Override
-    public List<GameDto> getGamesByLocalDateTime(LocalDate localDate) {
+    public List<GameDto> getGamesByLocalDateTime(LocalDate localDate) throws GameNotFoundException {
         LocalDateTime startOfDay = localDate.atStartOfDay();
         LocalDateTime endOfDay = localDate.atTime(LocalTime.MAX);
         Optional<List<Games>> games = gameRepository.findByLocalDateTimeBetween(startOfDay, endOfDay);
