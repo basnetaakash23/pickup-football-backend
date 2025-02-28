@@ -28,7 +28,7 @@ public class Games implements Serializable {
 
     private LocalDateTime localDateTime;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToMany( fetch = FetchType.LAZY)
     @JoinTable(
             name = "game_users",
             joinColumns = @JoinColumn(name = "game_id"),

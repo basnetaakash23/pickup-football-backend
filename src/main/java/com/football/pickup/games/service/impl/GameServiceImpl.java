@@ -1,7 +1,6 @@
 package com.football.pickup.games.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.football.pickup.games.Emails.EmailServiceImplementation;
 import com.football.pickup.games.dto.request.RegisterForGames;
 import com.football.pickup.games.dto.response.GameDto;
 import com.football.pickup.games.entity.Games;
@@ -35,8 +34,6 @@ public class GameServiceImpl implements GameServiceInterface {
 
     private static final int UPTO_DAY = 14;
 
-    private final EmailServiceImplementation emailServiceImplementation;
-
     ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
@@ -68,7 +65,7 @@ public class GameServiceImpl implements GameServiceInterface {
         List<Users> users = game.getUsers();
         users.add(user.get());
         game.setUsers(users);
-        emailServiceImplementation.sendEmail(user.get().getEmail(),game.getLocalDateTime().toString(),"User registered succesfully");
+
         return gameRepository.save(game).getId().toString();
 
     }

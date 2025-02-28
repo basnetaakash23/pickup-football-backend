@@ -59,24 +59,4 @@ public class UserController {
         }
     }
 
-    @GetMapping(value="/get")
-    public ResponseEntity<String> getSomething(){
-        return ResponseEntity.ok().body("OK");
-    }
-
-    @GetMapping(value="/get-current-user")
-    public ResponseEntity<String> getCurrentUser(){
-        return ResponseEntity.ok().body(UserUtils.getCurrentUsername());
-
-    }
-
-//    @GetMapping(value="/login")
-//    public ResponseEntity<String> loginSomething(){
-//        return ResponseEntity.ok().body("OK");
-//    }
-
-    @GetMapping(value="/register-user")
-    public UserDto registerUserDto(@RequestBody UserDto userDto){
-        return userDto;
-    }
 }
