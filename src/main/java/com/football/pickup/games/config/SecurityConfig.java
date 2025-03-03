@@ -43,7 +43,7 @@ public class SecurityConfig {
                                 .requestMatchers("/get-game-date/**").permitAll()
                                 .requestMatchers("/getAllVenues").permitAll()
                                 .requestMatchers("/get").permitAll()
-                                .requestMatchers("/get-active-games").permitAll()
+                                .requestMatchers("/games/**").permitAll()
                                 .requestMatchers("/register-games").permitAll()
                                 .requestMatchers("/create-games").permitAll()
                                 .requestMatchers("/get-last-game").permitAll()

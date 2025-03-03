@@ -17,7 +17,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@SuperBuilder
 public class Games implements Serializable {
 
     private static final long serialVersionUID = 1L;
