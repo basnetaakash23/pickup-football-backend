@@ -2,10 +2,7 @@ package com.football.pickup.games.entity;
 
 import com.football.pickup.games.entity.embeddable.Address;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
@@ -17,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Games implements Serializable {
 
     private static final long serialVersionUID = 1L;
