@@ -44,7 +44,7 @@ public class SecurityConfig {
                                 .requestMatchers("/getAllVenues").permitAll()
                                 .requestMatchers("/get").permitAll()
                                 .requestMatchers("/games/**").permitAll()
-                                .requestMatchers("/register-games").permitAll()
+                                .requestMatchers("/venues/**").permitAll()
                                 .requestMatchers("/create-games").permitAll()
                                 .requestMatchers("/get-last-game").permitAll()
                                 .requestMatchers("/users").hasRole("ADMIN")
