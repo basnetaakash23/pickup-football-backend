@@ -15,6 +15,7 @@ Features
 Technologies
 - Spring Boot
 - Spring Data JPA
+- Hibernate
 - Spring Security
 - PostgreSQL
 - Java 17
