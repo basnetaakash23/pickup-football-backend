@@ -39,4 +39,13 @@ public class Games implements Serializable {
 
     private boolean isAvailable;
 
+    @Version
+    private int version;
+
+    public void addUser(Users user) {
+        if (!users.contains(user)) {
+            users.add(user);
+        }
+    }
+
 }

@@ -11,9 +11,11 @@ import com.football.pickup.games.repository.GameRepository;
 import com.football.pickup.games.repository.UsersRepository;
 import com.football.pickup.games.repository.VenueRepository;
 import com.football.pickup.games.service.GameServiceInterface;
+import jakarta.persistence.OptimisticLockException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -50,6 +52,8 @@ public class GameServiceImpl implements GameServiceInterface {
     }
 
     @Override
+    @Transactional
+    @Retryable(value = OptimisticLockException.class, maxAttempts = 3)
     public String registerForGames(RegisterForGames registerForGames) throws Exception {
         Integer gameId = registerForGames.getGameId();
         Optional<Games> games = gameRepository.findById(Long.valueOf(gameId));
@@ -62,11 +66,9 @@ public class GameServiceImpl implements GameServiceInterface {
             throw new Exception("User not found");
         }
         Games game = games.get();
-        List<Users> users = game.getUsers();
-        users.add(user.get());
-        game.setUsers(users);
+        game.addUser(user.get());
 
-        return gameRepository.save(game).getId().toString();
+        return game.getId().toString();
 
     }
 
@@ -83,8 +85,8 @@ public class GameServiceImpl implements GameServiceInterface {
 
     @Override
     public List<GameDto> getActiveGames() throws Exception {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        Optional<List<Games>> games  = gameRepository.findByLocalDateTimeGreaterThanEqual(localDateTime);
+        //LocalDateTime localDateTime = LocalDateTime.now();
+        Optional<List<Games>> games  = gameRepository.findByIsAvailable(true);
         if(games.isEmpty()){
             throw new Exception("No games found");
         }

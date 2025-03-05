@@ -19,4 +19,6 @@ Optional<Games> findTopByOrderByLocalDateTimeDesc();
 Optional<List<Games>> findByLocalDateTimeGreaterThanEqual(LocalDateTime localDateTime);
 
     Optional<List<Games>> findByLocalDateTimeBetween(LocalDateTime startOfDay, LocalDateTime endOfDay);
+
+    Optional<List<Games>> findByIsAvailable(Boolean isAvailable);
 }
