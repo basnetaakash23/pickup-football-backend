@@ -115,6 +115,9 @@ public class GameServiceImpl implements GameServiceInterface {
                 .users(games.getUsers())
                 .isAvailable(games.isAvailable())
                 .price(games.getVenue().getPrice())
+                .propertyName(games.getVenue().getNameOfProperty())
+                .signIn(games.getUsers().size())
+                .totalPlayers(Integer.valueOf(12))
                 .build();
     }
     private void createNewGames(LocalDate localDate, Games games){

@@ -38,15 +38,13 @@ public class SecurityConfig {
                 .csrf(csrf->csrf.disable())
                 .authorizeHttpRequests((authorize) ->
                         authorize.requestMatchers("users/register/**", "users/login").permitAll()
-                                .requestMatchers("/index").permitAll()
-                                .requestMatchers("/send").permitAll()
-                                .requestMatchers("/get-game-date/**").permitAll()
                                 .requestMatchers("/getAllVenues").permitAll()
                                 .requestMatchers("/get").permitAll()
                                 .requestMatchers("/games/**").permitAll()
                                 .requestMatchers("/venues/**").permitAll()
-                                .requestMatchers("/create-games").permitAll()
-                                .requestMatchers("/get-last-game").permitAll()
+                                .requestMatchers("/games/create-games").permitAll()
+                                .requestMatchers("/games/get-active-games").permitAll()
+                                .requestMatchers("games/get-last-game").permitAll()
                                 .requestMatchers("/users").hasRole("ADMIN")
                 ).addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

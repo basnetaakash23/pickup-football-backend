@@ -20,7 +20,8 @@ public class Games implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_seq")
+    @SequenceGenerator(name = "game_seq", sequenceName = "game_sequence", allocationSize = 25)
     private Long id;
 
     private LocalDateTime localDateTime;

@@ -26,4 +26,7 @@ public class GameDto {
     private Address address;
     private boolean isAvailable;
     private Integer price;
+    private String propertyName;
+    private Integer signIn;
+    private Integer totalPlayers;
 }
