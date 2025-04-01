@@ -1,7 +1,6 @@
 package com.football.pickup.games.dto.response;
 
 import com.football.pickup.games.entity.Users;
-import com.football.pickup.games.entity.Venue;
 import com.football.pickup.games.entity.embeddable.Address;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +14,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GameDto {
+public class GameDetailDto {
 
     private Long id;
 
@@ -29,4 +28,6 @@ public class GameDto {
     private String propertyName;
     private Integer signIn;
     private Integer totalPlayers;
+    private String propertyDescription;
+
 }

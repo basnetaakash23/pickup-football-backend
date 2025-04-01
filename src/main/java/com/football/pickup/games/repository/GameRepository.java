@@ -21,4 +21,6 @@ Optional<List<Games>> findByLocalDateTimeGreaterThanEqual(LocalDateTime localDat
     Optional<List<Games>> findByLocalDateTimeBetween(LocalDateTime startOfDay, LocalDateTime endOfDay);
 
     Optional<List<Games>> findByIsAvailable(Boolean isAvailable);
+
+    Optional<Games> findGameById(Long id);
 }

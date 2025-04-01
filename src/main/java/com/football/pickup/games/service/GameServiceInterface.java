@@ -1,6 +1,7 @@
 package com.football.pickup.games.service;
 
 import com.football.pickup.games.dto.request.RegisterForGames;
+import com.football.pickup.games.dto.response.GameDetailDto;
 import com.football.pickup.games.dto.response.GameDto;
 import com.football.pickup.games.entity.Games;
 import com.football.pickup.games.exceptions.GameNotFoundException;
@@ -20,4 +21,6 @@ public interface GameServiceInterface {
     public List<GameDto> getActiveGames() throws Exception;
 
     public List<GameDto> getGamesByLocalDateTime(LocalDate localDateTime) throws GameNotFoundException;
+
+    public GameDetailDto getGameById(String id);
 }

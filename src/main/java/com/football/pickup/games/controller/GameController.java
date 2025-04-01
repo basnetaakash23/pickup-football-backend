@@ -1,6 +1,7 @@
 package com.football.pickup.games.controller;
 
 import com.football.pickup.games.dto.request.RegisterForGames;
+import com.football.pickup.games.dto.response.GameDetailDto;
 import com.football.pickup.games.dto.response.GameDto;
 import com.football.pickup.games.entity.Games;
 import com.football.pickup.games.exceptions.GameNotFoundException;
@@ -33,6 +34,11 @@ public class GameController {
     @GetMapping(value="/get-active-games")
     public ResponseEntity<List<GameDto>> getAllActiveGames() throws Exception {
         return ResponseEntity.ok().body(gameService.getActiveGames());
+    }
+
+    @GetMapping(value="/get-game-id/{id}")
+    public ResponseEntity<GameDetailDto> getGameById(@PathVariable String id) throws Exception {
+        return ResponseEntity.ok().body(gameService.getGameById(id));
     }
 
     @GetMapping(value="/create-games")

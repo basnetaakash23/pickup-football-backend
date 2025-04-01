@@ -2,6 +2,7 @@ package com.football.pickup.games.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.football.pickup.games.dto.request.RegisterForGames;
+import com.football.pickup.games.dto.response.GameDetailDto;
 import com.football.pickup.games.dto.response.GameDto;
 import com.football.pickup.games.entity.Games;
 import com.football.pickup.games.entity.Users;
@@ -15,7 +16,9 @@ import jakarta.persistence.OptimisticLockException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.retry.annotation.Retryable;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -54,16 +57,16 @@ public class GameServiceImpl implements GameServiceInterface {
     @Override
     @Transactional
     @Retryable(value = OptimisticLockException.class, maxAttempts = 3)
-    public String registerForGames(RegisterForGames registerForGames) throws Exception {
+    public String registerForGames(RegisterForGames registerForGames){
         Integer gameId = registerForGames.getGameId();
         Optional<Games> games = gameRepository.findById(Long.valueOf(gameId));
         if(games.isEmpty()){
-            throw new Exception("Game does not exists");
+            throw new GameNotFoundException("Game does not exists");
         }
 
         Optional<Users> user = usersRepository.findById(Long.valueOf(registerForGames.getUserId()));
         if(user.isEmpty()){
-            throw new Exception("User not found");
+            throw new UsernameNotFoundException("User not found");
         }
         Games game = games.get();
         game.addUser(user.get());
@@ -85,11 +88,11 @@ public class GameServiceImpl implements GameServiceInterface {
 
     @Cacheable(value="games")
     @Override
-    public List<GameDto> getActiveGames() throws Exception {
+    public List<GameDto> getActiveGames()  {
         //LocalDateTime localDateTime = LocalDateTime.now();
         Optional<List<Games>> games  = gameRepository.findByIsAvailable(true);
         if(games.isEmpty()){
-            throw new Exception("No games found");
+            throw new GameNotFoundException("Game not found");
         }
         List<GameDto> allCurrentFutureGames = games.get().stream().map(this::buildCurrentFutureGames).collect(Collectors.toList());
         return allCurrentFutureGames;
@@ -97,7 +100,7 @@ public class GameServiceImpl implements GameServiceInterface {
     }
 
     @Override
-    public List<GameDto> getGamesByLocalDateTime(LocalDate localDate) throws GameNotFoundException {
+    public List<GameDto> getGamesByLocalDateTime(LocalDate localDate){
         LocalDateTime startOfDay = localDate.atStartOfDay();
         LocalDateTime endOfDay = localDate.atTime(LocalTime.MAX);
         Optional<List<Games>> games = gameRepository.findByLocalDateTimeBetween(startOfDay, endOfDay);
@@ -107,6 +110,31 @@ public class GameServiceImpl implements GameServiceInterface {
         List<GameDto> todaysGames = games.get().stream().map(this::buildCurrentFutureGames).collect(Collectors.toList());
         return todaysGames;
 
+    }
+
+    @Override
+    public GameDetailDto getGameById(String id) {
+        Optional<Games> game = gameRepository.findById(Long.valueOf(id));
+        if(game.isEmpty()){
+            throw new GameNotFoundException("No games found for id="+id);
+        }
+
+        Games gameObj = game.get();
+
+        GameDetailDto gameDetailDto = GameDetailDto.builder().
+                id(gameObj.getId())
+                .address(gameObj.getVenue().getAddress())
+                .localDateTime(gameObj.getLocalDateTime())
+                .users(gameObj.getUsers())
+                .isAvailable(gameObj.isAvailable())
+                .price(gameObj.getVenue().getPrice())
+                .propertyName(gameObj.getVenue().getNameOfProperty())
+                .signIn(gameObj.getUsers().size())
+                .propertyDescription("This is a 6 X 6 turf fields so we do not recommend putting on metal studs. Please park your vehicle at the available parking spot. Entrance is on the south side of the building. There are rest rooms in the property. Also we have fountains for clean drinking water. In case of injury, please reach out to front desk staff for safety kit.") //hard coded for now
+                .totalPlayers(Integer.valueOf(12)).  //hard coded for now
+                build();
+
+        return gameDetailDto;
     }
 
     private GameDto buildCurrentFutureGames(Games games) {
