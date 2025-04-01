@@ -83,6 +83,7 @@ public class GameServiceImpl implements GameServiceInterface {
 
     }
 
+    @Cacheable(value="games")
     @Override
     public List<GameDto> getActiveGames() throws Exception {
         //LocalDateTime localDateTime = LocalDateTime.now();
