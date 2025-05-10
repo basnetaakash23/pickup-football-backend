@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: pickup-football-db
+    restart: always
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: football
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  spring-app:
+    build: .
+    container_name: pickup-football-app
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      SERVER_PORT: 8088
+      SPRING_PROFILES_ACTIVE: local
+    ports:
+      - "8084:8088"
+
+volumes:
+  pgdata:
