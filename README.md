@@ -39,7 +39,8 @@ If you're starting from source:
 ./mvnw clean package -DskipTests
 ```
 
-docker-compose up --build
+```docker-compose up --build ```
+
 This will:
 
 Build the Spring Boot app image using your Dockerfile
