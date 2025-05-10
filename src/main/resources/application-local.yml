@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: pickup-football
+  datasource:
+    url: jdbc:postgresql://postgres:5432/football
+    username: username
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  security:
+    user:
+      name: admin          # Default username
+      password: admin123
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      auto-offset-reset: earliest
+    producer:
+      retries: 3
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+server:
+  port: 8088
+
+jwt:
+  secret: iamsmartjhgsahjsgjhagfsjhj16752717abkjbdsjhfbjhdsbvjhbskjdbfkbkasjbdkfjbdskfjdsbvkjbsdvjkbadsvk782316537rg3f8gbf7823bv4f78ybgry8bcg23vcy78cy78cb7r87cvr2bv3878rc78r2bc8
+  expiration: 3600000
+  refresh-token:
+    expiration: 604800000
+
+
