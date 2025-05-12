@@ -54,4 +54,39 @@ Wire both together in a shared Docker network
 ```http://localhost:8084```
 
 ```GET http://localhost:8084/games/get-active-games```
- 
+
+📘 Documented Process: Docker Network, PostgreSQL, and Spring Boot
+✅ 1. Create a User-Defined Docker Network
+This network allows containers to communicate via container names (e.g., postgres).
+
+bash
+Copy
+Edit
+docker network create spring-net
+✅ 2. Run PostgreSQL Container on This Network
+bash
+Copy
+Edit
+docker run -d \
+--name postgres \
+--network spring-net \
+-e POSTGRES_DB=football \
+-e POSTGRES_USER=username \
+-e POSTGRES_PASSWORD=password \
+-p 5432:5432 \
+postgres
+🔍 Explanation:
+--network spring-net: Adds the container to the shared network.
+
+--name postgres: Allows other containers to reach it via postgres hostname.
+
+-p 5432:5432: Exposes the DB to the host (optional if only accessed from Spring Boot).
+
+docker run -d \
+--name spring-app \
+--network spring-net \
+-e SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/football \
+-e SPRING_DATASOURCE_USERNAME=username \
+-e SPRING_DATASOURCE_PASSWORD=password \
+-p 8080:8080 \
+pickup-football-app
