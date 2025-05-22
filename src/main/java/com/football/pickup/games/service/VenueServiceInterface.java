@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface VenueServiceInterface {
 
-    public String addVenue(VenueDto venueDto);
+    String addVenue(VenueDto venueDto);
 
-    public List<VenueDto> getAllVenues();
+    List<VenueDto> getAllVenues();
 }

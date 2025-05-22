@@ -5,5 +5,5 @@ import com.football.pickup.games.dto.response.auth.AuthenticationResponse;
 
 public interface UserServiceInterface {
 
-    public AuthenticationResponse addUser(UserDto user) throws Exception;
+    AuthenticationResponse addUser(UserDto user) throws Exception;
 }

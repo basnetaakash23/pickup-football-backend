@@ -12,15 +12,15 @@ import java.util.List;
 
 public interface GameServiceInterface {
 
-    public void createGames();
+    void createGames();
 
-    public String registerForGames(RegisterForGames registerForGames) throws Exception;
+    String registerForGames(RegisterForGames registerForGames) throws Exception;
 
-    public LocalDate findLastGames();
+    LocalDate findLastGames();
 
-    public List<GameDto> getActiveGames() throws Exception;
+    List<GameDto> getActiveGames() throws Exception;
 
-    public List<GameDto> getGamesByLocalDateTime(LocalDate localDateTime) throws GameNotFoundException;
+    List<GameDto> getGamesByLocalDateTime(LocalDate localDateTime) throws GameNotFoundException;
 
-    public GameDetailDto getGameById(String id);
+    GameDetailDto getGameById(String id);
 }
