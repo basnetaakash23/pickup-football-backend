@@ -44,7 +44,8 @@ public class SecurityConfig {
                                 .requestMatchers("/venues/**").permitAll()
                                 .requestMatchers("/games/create-games").permitAll()
                                 .requestMatchers("/games/get-active-games").permitAll()
-                                .requestMatchers("games/get-last-game").permitAll()
+                                .requestMatchers("/games/get-last-game").permitAll()
+                                .requestMatchers("/otp/**").permitAll()
                                 .requestMatchers("/users").hasRole("ADMIN")
                 ).addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
