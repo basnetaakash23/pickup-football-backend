@@ -5,9 +5,9 @@ Functions:
 - Allows registering for football games
 
 APIs
-- games/register-games
-- games/create-games
-- venues/get-all-venues
+- /games
+- /users
+- /venues
 
 Features
 - RESTful Web services
