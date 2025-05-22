@@ -21,33 +21,33 @@ public class GameController {
 
     private final GameServiceInterface gameService;
 
-    @PostMapping(value="/register-games")
-    public ResponseEntity<String> registerForGames(@RequestBody RegisterForGames registerForGames) throws Exception {
-        return ResponseEntity.ok().body(gameService.registerForGames(registerForGames));
-    }
-
-    @GetMapping(value="/get-last-game")
-    public ResponseEntity<LocalDate> getLastGameDate(){
-        return ResponseEntity.ok().body(gameService.findLastGames());
-    }
-
-    @GetMapping(value="/get-active-games")
-    public ResponseEntity<List<GameDto>> getAllActiveGames() throws Exception {
-        return ResponseEntity.ok().body(gameService.getActiveGames());
-    }
-
-    @GetMapping(value="/get-game-id/{id}")
-    public ResponseEntity<GameDetailDto> getGameById(@PathVariable String id) throws Exception {
-        return ResponseEntity.ok().body(gameService.getGameById(id));
-    }
-
-    @GetMapping(value="/create-games")
+    @GetMapping
     public void createGames(){
         gameService.createGames();
     }
 
-    @GetMapping(value="/get-game-date/{gameDate}")
-    public ResponseEntity<List<GameDto>> getGamesByDate(@PathVariable String gameDate) throws GameNotFoundException {
+    @PostMapping("/registrations")
+    public ResponseEntity<String> registerForGames(@RequestBody RegisterForGames registerForGames) throws Exception {
+        return ResponseEntity.ok().body(gameService.registerForGames(registerForGames));
+    }
+
+    @GetMapping(value="/last")
+    public ResponseEntity<LocalDate> getLastGameDate(){
+        return ResponseEntity.ok().body(gameService.findLastGames());
+    }
+
+    @GetMapping(value="/active")
+    public ResponseEntity<List<GameDto>> getAllActiveGames() throws Exception {
+        return ResponseEntity.ok().body(gameService.getActiveGames());
+    }
+
+    @GetMapping(value="/{id}")
+    public ResponseEntity<GameDetailDto> getGameById(@PathVariable String id) throws Exception {
+        return ResponseEntity.ok().body(gameService.getGameById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<GameDto>> getGamesByDate(@RequestParam(required = false) String gameDate) throws GameNotFoundException {
 
         return ResponseEntity.ok().body(gameService.getGamesByLocalDateTime(LocalDate.of(Integer.parseInt(gameDate.split("-")[0]),Integer.parseInt(gameDate.split("-")[1]), Integer.parseInt(gameDate.split("-")[2]))));
     }
