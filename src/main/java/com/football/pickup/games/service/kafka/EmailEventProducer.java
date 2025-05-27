@@ -1,4 +1,4 @@
-package com.football.pickup.games.service;
+package com.football.pickup.games.service.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

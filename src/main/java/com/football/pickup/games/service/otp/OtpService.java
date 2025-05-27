@@ -1,12 +1,12 @@
-package com.football.pickup.games.service;
+package com.football.pickup.games.service.otp;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.football.pickup.games.dto.request.EmailRequestDto;
 import com.football.pickup.games.entity.OtpToken;
 import com.football.pickup.games.repository.OtpTokenRepository;
+import com.football.pickup.games.service.kafka.EmailEventProducer;
 import com.football.pickup.games.util.OtpUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

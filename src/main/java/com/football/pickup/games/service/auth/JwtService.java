@@ -1,4 +1,4 @@
-package com.football.pickup.games.service;
+package com.football.pickup.games.service.auth;
 
 import com.football.pickup.games.dto.response.auth.AuthenticationResponse;
 import io.jsonwebtoken.Claims;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;

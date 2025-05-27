@@ -1,4 +1,4 @@
-package com.football.pickup.games.service;
+package com.football.pickup.games.service.auth;
 
 import com.football.pickup.games.entity.Users;
 import com.football.pickup.games.repository.UsersRepository;
@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.Set;
 
 @Service
