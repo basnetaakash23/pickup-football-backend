@@ -53,7 +53,7 @@ Wire both together in a shared Docker network
 
 ```http://localhost:8084```
 
-```GET http://localhost:8084/games/get-active-games```
+```GET http://localhost:8084/games/active```
 
 ### 📘 Documented Process: Docker Network, PostgreSQL, and Spring Boot
 ✅ 1. Create a User-Defined Docker Network
